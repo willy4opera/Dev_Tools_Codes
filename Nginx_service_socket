@@ -1,0 +1,20 @@
+create a .ini in the project root directory
+eg; project.ini
+add the follow configuration 
+
+[uwsgi]
+module = wsgi:app
+
+master = true
+processes = 5
+
+socket = /home/ubuntu/myflaskapp/project.sock
+chmod-socket = 660
+vacuum = true
+
+die-on-term = true
+
+where /home/ubuntu/myflaskapp/ is the project directory
+
+install 
+pip install uwsgi flask

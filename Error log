@@ -1,0 +1,3 @@
+sudo less /var/log/apache2/domains/williamsobi.com.ng.error.log
+
+sudo tail /var/log/apache2/domains/williamsobi.com.ng.error.log

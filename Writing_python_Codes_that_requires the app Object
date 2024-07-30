@@ -1,0 +1,56 @@
+In the python module that initializes and run the app:
+
+mail = Mail(app)
+
+
+in the module that requires the mail:
+
+import the current_app
+
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
+
+converted code from:
+from flask import Flask, render_template, request, flash
+from flask_mail import Mail, Message
+
+app = Flask(__name__)
+app.secret_key = 'Wind@wswil24d'  # Used for flashing messages, replace with a secure key
+
+# Flask-Mail configuration
+app.config['MAIL_SERVER'] = 'mail.biwillzcomputers.com'  # Replace with your SMTP server
+app.config['MAIL_PORT'] = 587  # Replace with your SMTP server's port number
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'admin@biwillzcomputers.com'  # Replace with your email address
+app.config['MAIL_PASSWORD'] = 'Wind@wswil24d'  # Replace with your email password
+
+mail = Mail(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    sender_email = request.form['sender_email']
+    recipient_email = request.form['recipient_email']
+    subject = request.form['subject']
+    message_body = request.form['message']
+
+    try:
+        # Create a message instance
+        msg = Message(subject=subject,
+                      sender=sender_email,
+                      recipients=[recipient_email])
+        msg.body = message_body
+
+        # Send email
+        mail.send(msg)
+
+        flash('Email sent successfully!', 'success')
+    except Exception as e:
+        flash(f'Error sending email: {str(e)}', 'error')
+
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)

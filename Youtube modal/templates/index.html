@@ -1,0 +1,36 @@
+<!-- Button or link to trigger the modal -->
+<a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">Watch Video</a>
+
+<!-- Modal markup -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Embedded YouTube video -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript to handle the modal behavior -->
+<script>
+  var videoModal = document.getElementById('videoModal');
+  videoModal.addEventListener('show.bs.modal', function (event) {
+    // Extract video URL from data-src attribute
+    var button = event.relatedTarget;
+    var videoUrl = button.getAttribute('data-src');
+    
+    // Set the iframe src attribute to the video URL
+    var iframe = videoModal.querySelector('iframe');
+    iframe.src = videoUrl;
+  });
+  
+  videoModal.addEventListener('hide.bs.modal', function (event) {
+    // Pause the video when modal is closed
+    var iframe = videoModal.querySelector('iframe');
+    iframe.src = '';
+  });
+</script>

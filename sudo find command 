@@ -1,0 +1,1 @@
+sudo find / -name "*newrelic*" -exec rm -rf {} \;
